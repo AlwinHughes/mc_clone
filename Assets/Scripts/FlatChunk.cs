@@ -43,13 +43,13 @@ public class FlatChunk : MonoBehaviour {
 
   private void init() {
     Debug.Log("init");
+    if(mesh_obj != null) {
+      return;
+    }
 
     mesh_obj = GameObject.Find("mesh");
     noise_gen = new NoiseGen1(noise_set);
 
-    if(mesh_obj != null) {
-      return;
-    }
     
     mesh_obj = new GameObject("mesh");
 
@@ -69,8 +69,7 @@ public class FlatChunk : MonoBehaviour {
 
     int tri_index = 0;
     int vert_index;
-
-    float inv_x_res = 1.0f / ( chunk_set.res_x - 1);
+float inv_x_res = 1.0f / ( chunk_set.res_x - 1);
     float inv_y_res = 1.0f / ( chunk_set.res_y - 1);
   
     for(int i = 0; i < chunk_set.res_x; i++) {
@@ -80,7 +79,7 @@ public class FlatChunk : MonoBehaviour {
 
         verts[vert_index] = new Vector3( 
             i * inv_x_res,
-            noise_gen.sample2D(inv_x_res * i * noise_set.scale_x, inv_y_res * j * noise_set.scale_y),
+            noise_gen.sample2D(inv_x_res * i, inv_y_res * j),
             j * inv_y_res
          );
 
@@ -100,6 +99,11 @@ public class FlatChunk : MonoBehaviour {
       }
     }
 
+    /*
+    Debug.Log("last x: ", noise_set.scale_x + noies_set.offset
+    Debug.Log("last y: ", 
+    */
+
     mesh_filter.sharedMesh.Clear();
     mesh_filter.sharedMesh.vertices = verts;
     mesh_filter.sharedMesh.triangles = triangles;
@@ -112,6 +116,25 @@ public class FlatChunk : MonoBehaviour {
   }
 
   public void onChunkSetChange() { 
+    updateMesh();
+  }
+
+  public void createdByParent(NoiseSetting ns, ChunkSettings cs, Vector3 pos) {
+    Debug.Log("created by parent");
+    noise_set = ns;
+    chunk_set = cs;
+
+    init();
+    updateMesh();
+    mesh_obj.transform.position = pos;
+  }
+
+  public void updateFromParent(NoiseSetting ns, ChunkSettings cs, Vector3 pos) {
+    noise_set = ns;
+    chunk_set = cs;
+    mesh_obj.transform.position = pos;
+    noise_gen = new NoiseGen1(noise_set);
+
     updateMesh();
   }
 

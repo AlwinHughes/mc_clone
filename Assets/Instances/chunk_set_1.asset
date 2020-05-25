@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8e8774b4d5389a6e9f0ab2d88d3c957, type: 3}
-  m_Name: noise_set_1
+  m_Script: {fileID: 11500000, guid: 303b26f2b3b8a2c45818a7d3bf045d49, type: 3}
+  m_Name: chunk_set_1
   m_EditorClassIdentifier: 
-  scale_x: 0
-  scale_y: 0
-  scale_z: 0
-  offset: {x: 0, y: 0, z: 0}
+  res_x: 63
+  res_y: 64
+  x_length: 1
+  y_length: 1
