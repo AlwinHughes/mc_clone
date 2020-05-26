@@ -61,7 +61,7 @@ public class FlatChunk : MonoBehaviour {
       noise_gen = new NoiseGen1(noise_set);
     }
 
-    
+
     mesh_obj = new GameObject("mesh");
 
     mesh_obj.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Standard"));

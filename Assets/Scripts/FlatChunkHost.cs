@@ -15,7 +15,8 @@ public class FlatChunkHost : MonoBehaviour {
   [SerializeField]
   public NoiseSetting noise_set;
 
-
+  [SerializeField]
+  public GeomNoiseSettings geom_noise_set;
 
   void OnValidate() {
     Debug.Log("host validat");
@@ -95,8 +96,8 @@ public class FlatChunkHost : MonoBehaviour {
 
   private INoiseGenerator getNoiseGen(int i, int j) {
     return new NoiseGen1Geom(
-        new NoiseSetting(noise_set, new Vector3(i * noise_set.scale_x, j * noise_set.scale_y,0))
-        );
+        new NoiseSetting(noise_set, new Vector3(i * noise_set.scale_x, j * noise_set.scale_y,0)),
+        geom_noise_set);
   }
 
   private Vector3 getPos(int i, int j) {

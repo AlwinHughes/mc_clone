@@ -14,6 +14,9 @@ public class FlatChunkHostEditor : Editor {
   private Editor chunk_host_editor;
   private bool chunk_host_foldout;
 
+  private Editor geom_noise_editor;
+  private bool geom_noise_foldout;
+
   public override void OnInspectorGUI() {
     DrawDefaultInspector();
 
@@ -23,6 +26,8 @@ public class FlatChunkHostEditor : Editor {
 
     DrawSettingsEditor(fch.chunk_set, fch.onChunkSetChange, ref chunk_foldout, ref chunk_editor);
     DrawSettingsEditor(fch.noise_set, fch.onNoiseSetChange, ref noise_foldout, ref noise_editor);
+
+    DrawSettingsEditor(fch.geom_noise_set, fch.onNoiseSetChange, ref geom_noise_foldout, ref geom_noise_editor);
   }
 
 
