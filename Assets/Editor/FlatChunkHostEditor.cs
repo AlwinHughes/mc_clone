@@ -28,6 +28,7 @@ public class FlatChunkHostEditor : Editor {
     DrawSettingsEditor(fch.noise_set, fch.onNoiseSetChange, ref noise_foldout, ref noise_editor);
 
     DrawSettingsEditor(fch.geom_noise_set, fch.onNoiseSetChange, ref geom_noise_foldout, ref geom_noise_editor);
+
   }
 
 

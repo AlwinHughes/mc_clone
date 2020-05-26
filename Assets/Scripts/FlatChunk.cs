@@ -15,8 +15,8 @@ public class FlatChunk : MonoBehaviour {
   [SerializeField]
   private bool has_parent = false;
 
-  [SerializeField]
-  private GameObject mesh_obj;
+  //[SerializeField]
+  //private GameObject mesh_obj;
 
   [SerializeField]
   private MeshFilter mesh_filter;
@@ -27,7 +27,6 @@ public class FlatChunk : MonoBehaviour {
       return;
     }
 
-
     Debug.Log("FlatChunk validate");
 
     if(chunk_set == null || noise_set == null) {
@@ -35,40 +34,33 @@ public class FlatChunk : MonoBehaviour {
       return;
     }
 
-    if(mesh_obj != null && noise_gen != null && mesh_filter != null) {
+    if(noise_gen != null && mesh_filter != null) {
       updateMesh();
     } else {
       init();
       updateMesh();
     }
-
-  }
-
-
-  void Initiate() {
-
   }
 
   private void init() {
     Debug.Log("init");
-    if(mesh_obj != null) {
-      Debug.Log("mesh obj already exists");
-      return;
-    }
 
-    mesh_obj = GameObject.Find("mesh");
     if(noise_set != null) {
       noise_gen = new NoiseGen1(noise_set);
     }
 
+    MeshRenderer mr = gameObject.GetComponent<MeshRenderer>();
+    if(mr == null) {
+      gameObject.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Standard"));
+    }
 
-    mesh_obj = new GameObject("mesh");
+    mesh_filter = gameObject.GetComponent<MeshFilter>();
+    if(mesh_filter == null) {
+      mesh_filter = gameObject.AddComponent<MeshFilter>();
+    }
 
-    mesh_obj.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Standard"));
-
-    mesh_filter = mesh_obj.AddComponent<MeshFilter>();
     mesh_filter.mesh = new Mesh();
-    mesh_filter.transform.parent = transform;
+    //mesh_filter.transform.parent = transform;
   }
 
   private void updateMesh() {
@@ -136,18 +128,16 @@ float inv_x_res = 1.0f / ( chunk_set.res_x - 1);
     chunk_set = cs;
     has_parent = true;
     noise_gen = ng;
-    Debug.Log("is ng null " + (ng == null));
 
     init();
-    Debug.Log("is noise_gen null " + (noise_gen == null));
     updateMesh();
-    mesh_obj.transform.position = pos;
+    transform.position = pos;
   }
 
   public void updateFromParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos) {
     //noise_set = ns;
     chunk_set = cs;
-    mesh_obj.transform.position = pos;
+    transform.position = pos;
     noise_gen = ng;
 
     updateMesh();

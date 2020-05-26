@@ -32,40 +32,36 @@ public class FlatChunkHost : MonoBehaviour {
   private void init() {
     Debug.Log("host init");
 
-    Debug.Log("chunks length: " + chunks.Length);
     if(chunks == null || chunks.Length == 0) {
       Debug.Log("create chunks array");
       chunks = new GameObject[chunk_host_set.length * chunk_host_set.width];
     }
 
-    Debug.Log("thing 1");
     if(chunks.Length != chunk_host_set.length * chunk_host_set.width) {
       Debug.Log("resizing chunk array");
       resizeChunksArr();
     }
 
-    Debug.Log("thing 2");
 
     GameObject obj;
     for(int i = 0; i < chunk_host_set.length; i++) {
       for(int j = 0; j < chunk_host_set.width; j++) {
         obj = getChunkObj(i,j);
         if(obj == null) {
-          Debug.Log("item " + i + ", " + j + "is null, recreating");
           obj = new GameObject();
           obj.transform.parent = transform;
           FlatChunk fc = obj.AddComponent<FlatChunk>();
 
           INoiseGenerator ng = getNoiseGen(i,j);
 
-          Debug.Log("is ng null2 " + (ng == null));
-          Debug.Log("ng " + ng);
-          Debug.Log("is ng.settings null2 " + (ng.noise_set == null));
-
           fc.createdByParent(ng, chunk_set, getPos(i,j));
           setChunkObj(i,j,obj);
         } else {
-          obj.GetComponent<FlatChunk>().createdByParent(getNoiseGen(i,j), chunk_set, getPos(i,j));
+          obj.GetComponent<FlatChunk>().createdByParent(
+              getNoiseGen(i,j),
+              chunk_set,
+              Vector3.Scale(getPos(i,j),transform.localScale)
+              );
         }
       }
     }
@@ -75,7 +71,11 @@ public class FlatChunkHost : MonoBehaviour {
     for(int i = 0; i < chunk_host_set.length; i++) {
       for(int j = 0; j < chunk_host_set.width; j++) {
         GameObject obj = getChunkObj(i,j);
-        obj.GetComponent<FlatChunk>().updateFromParent(getNoiseGen(i,j), chunk_set, getPos(i,j));
+        obj.GetComponent<FlatChunk>().updateFromParent(
+            getNoiseGen(i,j),
+            chunk_set,
+            Vector3.Scale(getPos(i,j), transform.localScale)
+            );
         }
       }
   }
