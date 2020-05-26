@@ -21,6 +21,9 @@ public class FlatChunk : MonoBehaviour {
   [SerializeField]
   private MeshFilter mesh_filter;
 
+  [SerializeField]
+  private MeshCollider mesh_collider;
+
   void OnValidate() {
 
     if(has_parent) {
@@ -57,6 +60,11 @@ public class FlatChunk : MonoBehaviour {
     mesh_filter = gameObject.GetComponent<MeshFilter>();
     if(mesh_filter == null) {
       mesh_filter = gameObject.AddComponent<MeshFilter>();
+    }
+
+    mesh_collider = gameObject.GetComponent<MeshCollider>();
+    if(mesh_collider == null) {
+      mesh_collider = gameObject.AddComponent<MeshCollider>();
     }
 
     mesh_filter.mesh = new Mesh();
@@ -102,15 +110,12 @@ float inv_x_res = 1.0f / ( chunk_set.res_x - 1);
       }
     }
 
-    /*
-    Debug.Log("last x: ", noise_set.scale_x + noies_set.offset
-    Debug.Log("last y: ", 
-    */
-
     mesh_filter.sharedMesh.Clear();
     mesh_filter.sharedMesh.vertices = verts;
     mesh_filter.sharedMesh.triangles = triangles;
     mesh_filter.sharedMesh.RecalculateNormals();
+
+    mesh_collider.sharedMesh = mesh_filter.sharedMesh;
   }
 
 
