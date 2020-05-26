@@ -5,13 +5,12 @@ using UnityEngine;
 public class NoiseGen1 : INoiseGenerator {
 
   public NoiseGen1(NoiseSetting ns) {
-    this.noise_set = ns;
+    noise_set = ns;
   }
 
   public override float sample2D(float x, float y) {
     return Mathf.PerlinNoise(
-        x *
-        noise_set.scale_x + noise_set.offset.x,
+        x * noise_set.scale_x + noise_set.offset.x,
         y * noise_set.scale_y + noise_set.offset.y
         );
   }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class INoiseGenerator : MonoBehaviour {
+abstract public class INoiseGenerator {
 
   abstract public float sample2D(float x, float y);
 

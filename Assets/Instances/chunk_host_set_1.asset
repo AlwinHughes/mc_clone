@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0ab336c26a494b19e4a673c3d28532, type: 3}
   m_Name: chunk_host_set_1
   m_EditorClassIdentifier: 
-  length: 0
-  width: 0
+  length: 3
+  width: 4

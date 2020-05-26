@@ -13,12 +13,20 @@ public class FlatChunk : MonoBehaviour {
   public INoiseGenerator noise_gen;
 
   [SerializeField]
+  private bool has_parent = false;
+
+  [SerializeField]
   private GameObject mesh_obj;
 
   [SerializeField]
   private MeshFilter mesh_filter;
 
   void OnValidate() {
+
+    if(has_parent) {
+      return;
+    }
+
 
     Debug.Log("FlatChunk validate");
 
@@ -28,7 +36,7 @@ public class FlatChunk : MonoBehaviour {
     }
 
     if(mesh_obj != null && noise_gen != null && mesh_filter != null) {
-    updateMesh();
+      updateMesh();
     } else {
       init();
       updateMesh();
@@ -44,11 +52,14 @@ public class FlatChunk : MonoBehaviour {
   private void init() {
     Debug.Log("init");
     if(mesh_obj != null) {
+      Debug.Log("mesh obj already exists");
       return;
     }
 
     mesh_obj = GameObject.Find("mesh");
-    noise_gen = new NoiseGen1(noise_set);
+    if(noise_set != null) {
+      noise_gen = new NoiseGen1(noise_set);
+    }
 
     
     mesh_obj = new GameObject("mesh");
@@ -58,7 +69,6 @@ public class FlatChunk : MonoBehaviour {
     mesh_filter = mesh_obj.AddComponent<MeshFilter>();
     mesh_filter.mesh = new Mesh();
     mesh_filter.transform.parent = transform;
-
   }
 
   private void updateMesh() {
@@ -71,11 +81,12 @@ public class FlatChunk : MonoBehaviour {
     int vert_index;
 float inv_x_res = 1.0f / ( chunk_set.res_x - 1);
     float inv_y_res = 1.0f / ( chunk_set.res_y - 1);
-  
+
+
     for(int i = 0; i < chunk_set.res_x; i++) {
       for(int j = 0; j < chunk_set.res_y; j++) {
 
-        vert_index = i +  chunk_set.res_x * j;
+        vert_index = i + chunk_set.res_x * j;
 
         verts[vert_index] = new Vector3( 
             i * inv_x_res,
@@ -84,7 +95,7 @@ float inv_x_res = 1.0f / ( chunk_set.res_x - 1);
          );
 
         if(i != chunk_set.res_x -1 && j != chunk_set.res_y -1) {
-          
+
           triangles[tri_index] = vert_index;
           triangles[tri_index + 1] = vert_index + chunk_set.res_x;
           triangles[tri_index + 2] = vert_index + chunk_set.res_x + 1;
@@ -119,28 +130,33 @@ float inv_x_res = 1.0f / ( chunk_set.res_x - 1);
     updateMesh();
   }
 
-  public void createdByParent(NoiseSetting ns, ChunkSettings cs, Vector3 pos) {
+  public void createdByParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos) {
     Debug.Log("created by parent");
-    noise_set = ns;
+    //noise_set = ns;
     chunk_set = cs;
+    has_parent = true;
+    noise_gen = ng;
+    Debug.Log("is ng null " + (ng == null));
 
     init();
+    Debug.Log("is noise_gen null " + (noise_gen == null));
     updateMesh();
     mesh_obj.transform.position = pos;
   }
 
-  public void updateFromParent(NoiseSetting ns, ChunkSettings cs, Vector3 pos) {
-    noise_set = ns;
+  public void updateFromParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos) {
+    //noise_set = ns;
     chunk_set = cs;
     mesh_obj.transform.position = pos;
-    noise_gen = new NoiseGen1(noise_set);
+    noise_gen = ng;
 
     updateMesh();
-  }
+   }
 
 
   // Start is called before the first frame update
   void Start() {
+
   }
 
   // Update is called once per frame
