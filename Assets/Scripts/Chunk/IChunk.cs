@@ -19,9 +19,25 @@ abstract public class IChunk : MonoBehaviour {
   protected MeshFilter mesh_filter;
 
 
-  abstract public void createdByParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos);
+  virtual public void createdByParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos) {
+    Debug.Log("created by parent");
+    //noise_set = ns;
+    chunk_set = cs;
+    has_parent = true;
+    noise_gen = ng;
 
-  abstract public void updateFromParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos);
+    init();
+    updateMesh();
+    transform.position = pos;
+  }
+
+  virtual public void updateFromParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos) {
+    chunk_set = cs;
+    transform.position = pos;
+    noise_gen = ng;
+
+    updateMesh();
+  }
 
   virtual protected void init() {
     Debug.Log("init");
@@ -68,8 +84,12 @@ abstract public class IChunk : MonoBehaviour {
 
   }
 
-  abstract public void onNoiseSetChange();
+  virtual public void onNoiseSetChange() {
+    updateMesh();
+  }
 
-  abstract public void onChunkSetChange();
+  virtual public void onChunkSetChange() {
+    updateMesh();
+  }
 
 }

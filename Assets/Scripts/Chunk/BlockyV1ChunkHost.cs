@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class FlatChunkHost : IChunkHost<FlatChunk, NoiseGen1Geom>  {
-
+public class BlockyV1ChunkHost :IChunkHost<BlockChunkV1, NoiseGen1Geom> {
 
   [SerializeField]
   public GeomNoiseSettings geom_noise_set;

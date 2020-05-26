@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlatChunk : IChunk {
+public class BlockChunkV1 : IChunk {
 
   [SerializeField]
   private MeshCollider mesh_collider;
+
+  [Range(1f,100f)]
+  public float steps = 10f;
 
   override protected void init() {
 
@@ -15,13 +18,11 @@ public class FlatChunk : IChunk {
     if(mesh_collider == null) {
       mesh_collider = gameObject.AddComponent<MeshCollider>();
     }
-
-    //mesh_filter.transform.parent = transform;
   }
 
   override protected void updateMesh() {
     Debug.Log("updating");
-
+    
     verts = new Vector3[chunk_set.res_x * chunk_set.res_y];
     triangles = new int[(chunk_set.res_x -1) * (chunk_set.res_y -1) * 6];
 
@@ -38,7 +39,7 @@ float inv_x_res = 1.0f / ( chunk_set.res_x - 1);
 
         verts[vert_index] = new Vector3( 
             i * inv_x_res,
-            noise_gen.sample2D(inv_x_res * i, inv_y_res * j),
+            Mathf.Floor(steps * noise_gen.sample2D(inv_x_res * i, inv_y_res * j)) / steps,
             j * inv_y_res
          );
 
@@ -65,5 +66,6 @@ float inv_x_res = 1.0f / ( chunk_set.res_x - 1);
 
     mesh_collider.sharedMesh = mesh_filter.sharedMesh;
   }
+
 
 }
