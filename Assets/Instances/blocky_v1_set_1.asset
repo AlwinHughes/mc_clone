@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1ee9e92a927068ea3a39900684a5e6, type: 3}
   m_Name: blocky_v1_set_1
   m_EditorClassIdentifier: 
-  steps: 18
+  steps: 64
