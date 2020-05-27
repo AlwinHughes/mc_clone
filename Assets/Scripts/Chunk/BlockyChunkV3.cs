@@ -2,28 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockyChunkV3 : IChunk {
+public class BlockyChunkV3 : IChunkCollider {
 
-  [SerializeField]
-  private MeshCollider mesh_collider;
 
   [Range(1f,100f)]
   public float steps = 10f;
 
   private List<Vector3> verts2;
   private List<int> triangles2;
-
-  override protected void init() {
-
-    base.init();
-
-    mesh_collider = gameObject.GetComponent<MeshCollider>();
-    if(mesh_collider == null) {
-      mesh_collider = gameObject.AddComponent<MeshCollider>();
-    }
-
-    //mesh_filter.transform.parent = transform;
-  }
 
   override protected void updateMesh() {
     Debug.Log("updating");
@@ -81,13 +67,7 @@ public class BlockyChunkV3 : IChunk {
           triangles2.Add(vert_index + 3);
 
           tri_index += 6;
-
-          
-
           vert_index += 4;
-          
-          
-          
 
           //vertical faces in x direction
           y2 = noise[(i + 1) + chunk_set.res_x * j];
@@ -110,8 +90,6 @@ public class BlockyChunkV3 : IChunk {
 
             vert_index += 4;
           }
-          
-          
 
           //vertical faces in the y direction
           y3 = noise[i + chunk_set.res_x * (j + 1)];

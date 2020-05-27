@@ -2,23 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockChunkV1 : IChunk {
-
-  [SerializeField]
-  private MeshCollider mesh_collider;
+public class BlockChunkV1 : IChunkCollider {
 
   [Range(1f,100f)]
   public float steps = 10f;
-
-  override protected void init() {
-
-    base.init();
-
-    mesh_collider = gameObject.GetComponent<MeshCollider>();
-    if(mesh_collider == null) {
-      mesh_collider = gameObject.AddComponent<MeshCollider>();
-    }
-  }
 
   override protected void updateMesh() {
     Debug.Log("updating");

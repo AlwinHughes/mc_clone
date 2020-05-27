@@ -2,22 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlatChunk : IChunk {
-
-  [SerializeField]
-  private MeshCollider mesh_collider;
-
-  override protected void init() {
-
-    base.init();
-
-    mesh_collider = gameObject.GetComponent<MeshCollider>();
-    if(mesh_collider == null) {
-      mesh_collider = gameObject.AddComponent<MeshCollider>();
-    }
-
-    //mesh_filter.transform.parent = transform;
-  }
+public class FlatChunk : IChunkCollider {
 
   override protected void updateMesh() {
     Debug.Log("updating");
