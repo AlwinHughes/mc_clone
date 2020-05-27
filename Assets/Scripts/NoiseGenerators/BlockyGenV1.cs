@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoiseGen1Geom : INoiseGenerator {
+public class BlockyGen1 : INoiseGenerator {
+
+  public BlockyV1Settings blocky_set;
 
   public GeomNoiseSettings geom_nois_set;
 
-  public NoiseGen1Geom(NoiseSetting ns) {
+
+  public BlockyGen1(NoiseSetting ns) {
     noise_set = ns;
   }
 
-  public NoiseGen1Geom(NoiseSetting ns, GeomNoiseSettings gns) {
+
+  public BlockyGen1(NoiseSetting ns, GeomNoiseSettings gns, BlockyV1Settings bs) {
     noise_set = ns;
     geom_nois_set = gns;
+    blocky_set = bs;
   }
 
   public override float sample2D(float x, float y) {
@@ -20,7 +25,12 @@ public class NoiseGen1Geom : INoiseGenerator {
     if(geom_nois_set == null) {
       geom_nois_set = new GeomNoiseSettings();
     }
-    
+
+    if(blocky_set == null) {
+      blocky_set = new BlockyV1Settings();
+    }
+
+
     float res = 0;
     float r = 1;
     float s = 0;
@@ -32,7 +42,7 @@ public class NoiseGen1Geom : INoiseGenerator {
       s += r;
       r *= geom_nois_set.ratio;
     }
-    return res;
+    return Mathf.Floor(blocky_set.steps * res)/ blocky_set.steps;
 
   }
 
@@ -48,4 +58,7 @@ public class NoiseGen1Geom : INoiseGenerator {
     return xy + xz + yz + yx + zx + zy;
 
     }
+
+
+
 }

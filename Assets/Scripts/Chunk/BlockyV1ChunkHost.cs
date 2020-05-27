@@ -2,27 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockyV1ChunkHost :IChunkHost<BlockChunkV1, NoiseGen1Geom> {
+public class BlockyV1ChunkHost :IChunkHost<FlatChunk, BlockyGen1> {
 
   [SerializeField]
   public GeomNoiseSettings geom_noise_set;
 
+  public BlockyV1Settings blocky_set;
 
-  void Start() {
-
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-
-  }
-
-
-  override protected NoiseGen1Geom getNoiseGen(int i, int j) {
-    return new NoiseGen1Geom(
+  override protected BlockyGen1 getNoiseGen(int i, int j) {
+    return new BlockyGen1(
         new NoiseSetting(noise_set, new Vector3(i * noise_set.scale_x, j * noise_set.scale_y,0)),
-        geom_noise_set);
+        geom_noise_set,
+        blocky_set);
   }
 
 }

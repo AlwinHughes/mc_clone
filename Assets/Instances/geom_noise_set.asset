@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: geom_noise_set
   m_EditorClassIdentifier: 
   layers: 3
-  ratio: 3.2
+  ratio: 2.31

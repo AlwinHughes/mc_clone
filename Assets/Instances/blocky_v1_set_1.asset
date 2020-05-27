@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 303b26f2b3b8a2c45818a7d3bf045d49, type: 3}
-  m_Name: chunk_set_1
+  m_Script: {fileID: 11500000, guid: dc1ee9e92a927068ea3a39900684a5e6, type: 3}
+  m_Name: blocky_v1_set_1
   m_EditorClassIdentifier: 
-  res_x: 41
-  res_y: 40
-  x_length: 4.1
-  y_length: 1
+  steps: 27
