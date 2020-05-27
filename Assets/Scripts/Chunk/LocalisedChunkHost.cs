@@ -122,21 +122,17 @@ abstract public class LocalisedChunkHost <C,G> : IChunkHost<C,G> where C : IChun
   }
 
   virtual new public void onChunkHostSetChange() {
-    loaded_index = findInRange();
+    deloadOld();
     updateInRange();
   }
 
   virtual public void updateCenter(Vector3 cen) {
     center = cen;
-    loaded_index = findInRange();
+    deloadOld();
     updateInRange();
   }
 
   virtual protected float metric(Vector3 v) {
     return Vector3.Distance(center, v);
   }
-
-
-
-
 }
