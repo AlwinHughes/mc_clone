@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 303b26f2b3b8a2c45818a7d3bf045d49, type: 3}
   m_Name: chunk_set_1
   m_EditorClassIdentifier: 
-  res_x: 20
-  res_y: 23
+  res_x: 32
+  res_y: 32
   x_length: 4.1
   y_length: 1
