@@ -2,8 +2,8 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(BlockyV1ChunkHost))]
-public class BlockyV1HostEditor : Editor {
+[CustomEditor(typeof(BlockyV2ChunkHost))]
+public class BlockyV2HostEditor : Editor {
 
   private Editor chunk_editor;
   private bool chunk_foldout;
@@ -23,7 +23,7 @@ public class BlockyV1HostEditor : Editor {
   public override void OnInspectorGUI() {
     DrawDefaultInspector();
 
-    BlockyV1ChunkHost ch = (BlockyV1ChunkHost) target;
+    BlockyV2ChunkHost ch = (BlockyV2ChunkHost) target;
 
     DrawSettingsEditor(ch.chunk_host_set, ch.onChunkHostSetChange, ref chunk_host_foldout, ref chunk_host_editor);
 
@@ -35,7 +35,6 @@ public class BlockyV1HostEditor : Editor {
     DrawSettingsEditor(ch.blocky_set, ch.onNoiseSetChange, ref blocky_foldout, ref blocky_editor);
 
   }
-
 
   void DrawSettingsEditor(Object settings, System.Action onSettingsUpdated, ref bool foldout, ref Editor editor)
   {

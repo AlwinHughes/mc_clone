@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockyV1ChunkHost : IChunkHost<FlatChunk, BlockyGen1> {
+public class BlockyV2ChunkHost : IChunkHost<BlockyChunkV2, BlockyGen1> {
 
   [SerializeField]
   public GeomNoiseSettings geom_noise_set;
