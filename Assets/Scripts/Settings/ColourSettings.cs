@@ -7,6 +7,5 @@ public class ColourSettings : ScriptableObject {
 
   public Material mat;
 
-  public Gradient grad;
-
+  public Color col;
 }

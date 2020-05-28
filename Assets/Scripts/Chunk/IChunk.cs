@@ -6,6 +6,7 @@ abstract public class IChunk : MonoBehaviour {
 
   public ChunkSettings chunk_set;
   public NoiseSetting noise_set;
+  public ColourSettings col_set;
 
   protected int[] triangles;
   protected Vector3[] verts;
@@ -17,6 +18,8 @@ abstract public class IChunk : MonoBehaviour {
 
   [SerializeField]
   protected MeshFilter mesh_filter;
+  [SerializeField]
+  protected MeshRenderer mesh_renderer;
 
 
   virtual public void createdByParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos) {
@@ -31,11 +34,30 @@ abstract public class IChunk : MonoBehaviour {
     transform.position = pos;
   }
 
+  virtual public void createdByParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos, ColourSettings new_col_set) {
+    Debug.Log("created by parent");
+    //noise_set = ns;
+    chunk_set = cs;
+    has_parent = true;
+    noise_gen = ng;
+    col_set = new_col_set;
+
+    init();
+    updateMesh();
+    transform.position = pos;
+  }
+
   virtual public void updateFromParent(INoiseGenerator ng, ChunkSettings cs, Vector3 pos) {
     chunk_set = cs;
     transform.position = pos;
     noise_gen = ng;
 
+    updateMesh();
+  }
+
+  virtual public void updateColSetFromParent(ColourSettings new_col_set) {
+    col_set = new_col_set;
+    mesh_renderer.sharedMaterial = col_set.mat;
     updateMesh();
   }
 
@@ -46,9 +68,14 @@ abstract public class IChunk : MonoBehaviour {
       noise_gen = new NoiseGen1(noise_set);
     }
 
-    MeshRenderer mr = gameObject.GetComponent<MeshRenderer>();
-    if(mr == null) {
-      gameObject.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Standard"));
+    mesh_renderer = gameObject.GetComponent<MeshRenderer>();
+    if(mesh_renderer == null ) {
+      mesh_renderer = gameObject.AddComponent<MeshRenderer>();
+      if(col_set.mat == null) {
+        mesh_renderer.sharedMaterial = new Material(Shader.Find("Standard"));
+      } else {
+        mesh_renderer.sharedMaterial = col_set.mat;
+      }
     }
 
     mesh_filter = gameObject.GetComponent<MeshFilter>();
@@ -91,5 +118,4 @@ abstract public class IChunk : MonoBehaviour {
   virtual public void onChunkSetChange() {
     updateMesh();
   }
-
 }

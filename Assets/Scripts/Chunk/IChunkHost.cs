@@ -15,9 +15,12 @@ abstract public class IChunkHost<C,G> : MonoBehaviour where C : IChunk where G :
   [SerializeField]
   public NoiseSetting noise_set;
 
+
+  public ColourSettings col_set;
+
   virtual public void OnValidate() {
     Debug.Log("host validat");
-    if(chunk_host_set == null || noise_set == null || chunk_set == null) {
+    if(chunk_host_set == null || noise_set == null || chunk_set == null || col_set == null) {
       Debug.Log("host break");
       return;
     }
@@ -48,13 +51,14 @@ abstract public class IChunkHost<C,G> : MonoBehaviour where C : IChunk where G :
 
           INoiseGenerator ng = getNoiseGen(i,j);
 
-          fc.createdByParent(ng, chunk_set, getPos(i,j));
+          fc.createdByParent(ng, chunk_set, getPos(i,j), getColSet(i,j));
           setChunkObj(i,j,obj);
         } else {
           obj.GetComponent<C>().createdByParent(
               getNoiseGen(i,j),
               chunk_set,
-              Vector3.Scale(getPos(i,j),transform.localScale)
+              Vector3.Scale(getPos(i,j),transform.localScale), 
+              getColSet(i,j)
               );
         }
       }
@@ -115,5 +119,20 @@ abstract public class IChunkHost<C,G> : MonoBehaviour where C : IChunk where G :
     chunks = temp;
   }
 
+  virtual protected ColourSettings getColSet(int i, int j) {
+    return col_set;
+  }
 
+  virtual protected void updateChunksColSet() {
+    for(int i = 0; i < chunk_host_set.length; i++) {
+      for(int j = 0; j < chunk_host_set.width; j++) {
+        getChunkObj(i,j).GetComponent<C>().updateColSetFromParent(getColSet(i,j));
+      }
+    }
+  }
+
+  virtual public void onColourSetChange() {
+    Debug.Log("on colour set change");
+    updateChunksColSet();
+  }
 }
