@@ -3,16 +3,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(LocalisedBlockyV3Host))]
-public class LocalisedBlockyV3HostEditor : Editor {
-
-  private Editor chunk_editor;
-  private bool chunk_foldout;
-
-  private Editor noise_editor;
-  private bool noise_foldout;
-
-  private Editor chunk_host_editor;
-  private bool chunk_host_foldout;
+public class LocalisedBlockyV3HostEditor : IChunkHostEditor<BlockyChunkV3, BlockyGen1> {
 
   private Editor geom_noise_editor;
   private bool geom_noise_foldout;
@@ -24,24 +15,15 @@ public class LocalisedBlockyV3HostEditor : Editor {
   private bool loc_foldout;
 
   public override void OnInspectorGUI() {
-
-    DrawDefaultInspector();
+    base.OnInspectorGUI();
 
     LocalisedBlockyV3Host ch = (LocalisedBlockyV3Host) target;
-
-    DrawSettingsEditor(ch.chunk_host_set, ch.onChunkHostSetChange, ref chunk_host_foldout, ref chunk_host_editor);
-
-    DrawSettingsEditor(ch.chunk_set, ch.onChunkSetChange, ref chunk_foldout, ref chunk_editor);
-
-    DrawSettingsEditor(ch.noise_set, ch.onNoiseSetChange, ref noise_foldout, ref noise_editor);
 
     DrawSettingsEditor(ch.geom_noise_set, ch.onNoiseSetChange, ref geom_noise_foldout, ref geom_noise_editor);
 
     DrawSettingsEditor(ch.blocky_set, ch.onNoiseSetChange, ref blocky_foldout, ref blocky_editor);
 
     DrawSettingsEditor(ch.loc_set, ch.onLocSetChange, ref loc_foldout, ref loc_editor);
-
-    
 
   }
 
