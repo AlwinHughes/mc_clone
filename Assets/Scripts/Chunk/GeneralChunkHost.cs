@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneralChunkHost<C,G> : IChunkHost<C,G> where C : IChunk where G : INoiseGenerator {
+public class GeneralChunkHost<C,G> : IChunkHost<C,G> where C : IChunkCollider where G : INoiseGenerator {
 
   override protected void init() {
     Debug.Log("host init");

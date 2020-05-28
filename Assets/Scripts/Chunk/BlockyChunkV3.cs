@@ -11,8 +11,15 @@ public class BlockyChunkV3 : IChunkCollider {
   private List<Vector3> verts2;
   private List<int> triangles2;
 
+  /* todo: investigate why adding this mehd makes everything brake
+  override protected void init() {
+    Debug.Log("bcv3 init");
+  }
+  */
+
+
   override protected void updateMesh() {
-    Debug.Log("updating");
+    Debug.Log("bcv3 updating");
 
     //verts = new Vector3[4 * (chunk_set.res_x ) * (chunk_set.res_y )];
     //triangles = new int[(chunk_set.res_x -1) * (chunk_set.res_y -1) *6];
@@ -115,11 +122,6 @@ public class BlockyChunkV3 : IChunkCollider {
 
         }
 
-
-
-
-
-
       }
     }
 
@@ -128,8 +130,7 @@ public class BlockyChunkV3 : IChunkCollider {
     mesh_filter.sharedMesh.triangles = triangles2.ToArray();
     mesh_filter.sharedMesh.RecalculateNormals();
 
-    mesh_collider.sharedMesh = mesh_filter.sharedMesh;
-  }
+    mesh_collider.sharedMesh = mesh_filter.sharedMesh; }
 
 
 }

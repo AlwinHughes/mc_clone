@@ -59,7 +59,6 @@ abstract public class IChunkHost<C,G> : MonoBehaviour where C : IChunk where G :
         }
       }
     }
-
   }
 
   virtual public void onNoiseSetChange() {

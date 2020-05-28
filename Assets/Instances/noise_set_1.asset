@@ -15,4 +15,4 @@ MonoBehaviour:
   scale_x: 0.5
   scale_y: 0.3
   scale_z: 1
-  offset: {x: 10, y: 2, z: 0}
+  offset: {x: 0, y: 2, z: 0}
