@@ -56,6 +56,7 @@ abstract public class IChunk : MonoBehaviour {
   }
 
   virtual public void updateColSetFromParent(ColourSettings new_col_set) {
+    Debug.Log("update col set from p");
     col_set = new_col_set;
     mesh_renderer.sharedMaterial = col_set.mat;
     updateMesh();
