@@ -47,10 +47,15 @@ public class BlockyChunkV3 : IChunkCollider {
     float y2;
     float y3;
 
-    Vector2 top_left = new Vector2(0f,1f);
-    Vector2 top_right = new Vector2(1f,1f);
-    Vector2 bot_left = new Vector2(0,0);
-    Vector2 bot_right = new Vector2(1,0);
+    Vector2 dirt_top_left = new Vector2(0f,1f);
+    Vector2 dirt_top_right = new Vector2(0.5f,1f);
+    Vector2 dirt_bot_left = new Vector2(0f,0f);
+    Vector2 dirt_bot_right = new Vector2(0.5f,0);
+
+    Vector2 grass_top_left = new Vector2(0.5f,1f);
+    Vector2 grass_top_right = new Vector2(1f,1f);
+    Vector2 grass_bot_left = new Vector2(0.5f,0f);
+    Vector2 grass_bot_right = new Vector2(1f,0);
 
     for(int i = 0; i < chunk_set.res_x; i++) {
       for(int j = 0; j < chunk_set.res_y; j++) {
@@ -59,19 +64,18 @@ public class BlockyChunkV3 : IChunkCollider {
 
           y = noise[i + chunk_set.res_x * j];
           
+          //horizontal faces
           verts2.Add(new Vector3(i * inv_x_res, y, j * inv_y_res));
-          uvs.Add(bot_left);
+          uvs.Add(grass_bot_left);
 
           verts2.Add(new Vector3( (i+1) * inv_x_res, y, j * inv_y_res));
-          uvs.Add(bot_right);
+          uvs.Add(grass_bot_right);
 
           verts2.Add(new Vector3( i * inv_x_res, y, (j +1) * inv_y_res));
-          uvs.Add(top_left);
+          uvs.Add(grass_top_left);
 
           verts2.Add(new Vector3( (i+1) * inv_x_res, y, (j+1) * inv_y_res));
-          uvs.Add(top_right);
-
-
+          uvs.Add(grass_top_right);
 
           triangles2.Add(vert_index);
           triangles2.Add(vert_index + 3);
@@ -89,24 +93,20 @@ public class BlockyChunkV3 : IChunkCollider {
           if(y2 != y) {
 
             verts2.Add(new Vector3( (i + 1) * inv_x_res, y2, j * inv_y_res));
-
             verts2.Add(new Vector3( (i + 1) * inv_x_res, y2, (j + 1) * inv_y_res));
-
             verts2.Add(new Vector3( (i + 1) * inv_x_res, y, j * inv_y_res));
-            
-
             verts2.Add(new Vector3( (i + 1) * inv_x_res, y, (j + 1) * inv_y_res));
-
+            
             if(y2 > y) {
-              uvs.Add(top_right);
-              uvs.Add(top_left);
-              uvs.Add(bot_right);
-              uvs.Add(bot_left);
+              uvs.Add(dirt_top_right);
+              uvs.Add(dirt_top_left);
+              uvs.Add(dirt_bot_right);
+              uvs.Add(dirt_bot_left);
             } else {
-              uvs.Add(bot_left);
-              uvs.Add(bot_right);
-              uvs.Add(top_left);
-              uvs.Add(top_right);
+              uvs.Add(dirt_bot_left);
+              uvs.Add(dirt_bot_right);
+              uvs.Add(dirt_top_left);
+              uvs.Add(dirt_top_right);
             }
 
             triangles2.Add(vert_index);
@@ -127,29 +127,22 @@ public class BlockyChunkV3 : IChunkCollider {
           if(y3 != y) {
 
             verts2.Add(new Vector3(i * inv_x_res, y3, (j + 1) * inv_y_res));
-            
-
             verts2.Add(new Vector3((i + 1) * inv_x_res, y3, (j + 1) * inv_y_res));
-            
-
             verts2.Add(new Vector3(i * inv_x_res, y, (j + 1) * inv_y_res));
-            
-
             verts2.Add(new Vector3((i + 1) * inv_x_res, y, (j + 1) * inv_y_res));
 
 
             if(y3 > y) {
-              uvs.Add(top_left);
-              uvs.Add(top_right);
-              uvs.Add(bot_left);
-              uvs.Add(bot_right);
+              uvs.Add(dirt_top_left);
+              uvs.Add(dirt_top_right);
+              uvs.Add(dirt_bot_left);
+              uvs.Add(dirt_bot_right);
             } else {
-              uvs.Add(bot_right);
-              uvs.Add(bot_left);
-              uvs.Add(top_right);
-              uvs.Add(top_left);
+              uvs.Add(dirt_bot_right);
+              uvs.Add(dirt_bot_left);
+              uvs.Add(dirt_top_right);
+              uvs.Add(dirt_top_left);
             }
-            
 
             triangles2.Add(vert_index);
             triangles2.Add(vert_index + 1);
