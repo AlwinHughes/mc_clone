@@ -5,3 +5,8 @@ ProjectSettings/
 Temp/
 Builds/
 *.xcf
+Scripts/libs/FastNoise_CSharp/LICENSE
+Scripts/libs/FastNoise_CSharp/LICENSE.meta
+Scripts/libs/FastNoise_CSharp/README.md
+Scripts/libs/FastNoise_CSharp/README.md.meta
+

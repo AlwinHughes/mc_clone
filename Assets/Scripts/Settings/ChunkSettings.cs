@@ -9,6 +9,8 @@ public class ChunkSettings : ScriptableObject {
   public int res_x;
   [Range(0,100)]
   public int res_y;
+  [Range(0,100)]
+  public int res_z;
 
   [Range(1f,20f)]
   public float x_length;

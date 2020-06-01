@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   res_x: 32
   res_y: 32
-  x_length: 4.1
+  x_length: 3.75
   y_length: 1

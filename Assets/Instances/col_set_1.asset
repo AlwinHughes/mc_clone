@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7676f367ff9672db8014e570fec0b6, type: 3}
   m_Name: col_set_1
   m_EditorClassIdentifier: 
-  mat: {fileID: 2100000, guid: 553878bcb6a370f9fb09d86e8c46b24e, type: 2}
+  mat: {fileID: 2100000, guid: e82749a066ec8e2e3857969cbf39b177, type: 2}
   col: {r: 0, g: 0, b: 0, a: 0}

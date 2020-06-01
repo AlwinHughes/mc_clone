@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371dae7ea3cf02a6aa7837e20450c185, type: 3}
   m_Name: geom_noise_set
   m_EditorClassIdentifier: 
-  layers: 7
-  ratio: 1.59
+  layers: 4
+  ratio: 6.6
